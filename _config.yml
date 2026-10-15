@@ -1,0 +1,26 @@
+title: REMAKE DAY
+description: 같은 하루를 반복하는 루프물 대화 게임 REMAKE DAY의 개발 문서와 연구 기록. 김충식 개인 프로젝트.
+url: "https://remakeday.foodopenlab.com"
+baseurl: ""
+lang: ko
+timezone: Asia/Seoul
+theme: just-the-docs
+plugins: [jekyll-feed]
+search_enabled: true
+search: {heading_level: 3, preview_words: 30}
+enable_copy_code_button: true
+heading_anchors: true
+color_scheme: remakeday
+mermaid: {version: "10.9.3"}
+project:
+  app_url: "https://remakeday.com"        # 실제 게임. 확인 후 수정
+  repo_app: "https://github.com/remakeday/com.remakeday"
+  repo_site: "https://github.com/foodopenlab/remakeday.foodopenlab.com"
+  started: "2026-09-03"
+  v1_released: "2026-09-16"
+footer_content: "REMAKE DAY — 김충식 개인 프로젝트 개발 문서. 탐색적 관찰은 성능 주장이 아닙니다."
+exclude: [README.md, HANDOFF.md, brainstorming.md, AGENTS.md, CLAUDE.md, docs/, scripts/, tests/, _private/, Gemfile, Gemfile.lock, "REMAKE_DAY_*", "TalkFile_*"]
+
+# Locked theme uses the Sass import API; keep other warnings visible.
+sass:
+  silence_deprecations: [import, global-builtin, color-functions]

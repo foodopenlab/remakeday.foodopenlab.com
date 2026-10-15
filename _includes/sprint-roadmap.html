@@ -1,0 +1,19 @@
+<div class="sprint-roadmap">
+  <p><strong>상태 기준일 {{ site.data.project_sprints.as_of }}</strong></p>
+  <p>{{ site.data.project_sprints.status_note | escape }}</p>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr><th scope="col">스프린트·기간</th><th scope="col">목표</th><th scope="col">진행사항</th></tr></thead>
+      <tbody>
+      {% for sprint in site.data.project_sprints.sprints %}
+        {% assign sprint_state = site.data.project_sprints.states | where: 'id', sprint.status | first %}
+        <tr>
+          <th scope="row"><a href="{{ '/docs/wbs.html' | relative_url }}#{{ sprint.id }}">{{ sprint.name | escape }}</a><br>{{ sprint.period | escape }}{% if sprint.record_url %}<br><a href="{{ sprint.record_url | relative_url }}">일자별 진행 사항 →</a>{% endif %}</th>
+          <td>{{ sprint.goal | escape }}<br><small>{{ sprint.phase | escape }}</small></td>
+          <td><strong class="sprint-status sprint-status-{{ sprint.status }}">{{ sprint_state.label | escape }}</strong><br><small>과제 {{ sprint.tasks.size }}건</small><br>{% for state in site.data.project_sprints.states %}{% assign tasks = sprint.tasks | where: 'status', state.id %}{% if tasks.size > 0 %}<span class="sprint-status sprint-status-{{ state.id }}">{{ state.label | escape }} {{ tasks.size }}</span> {% endif %}{% endfor %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
