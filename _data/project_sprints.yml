@@ -1,0 +1,1746 @@
+# scripts/convert-kanban.py 가 생성. 손으로 고치지 말고 스크립트를 수정한다.
+as_of: '2026-10-15'
+status_note: v1은 2026-09-16 공개. 이후 작업은 Sprint 4에 누적.
+states:
+- id: todo
+  label: 예정
+  hint: 아직 착수 기록이 없는 작업
+- id: doing
+  label: 진행 중
+  hint: 작업 중이며 종료 조건 미충족
+- id: review
+  label: 검토
+  hint: 결과는 있으나 추가 확인 필요
+- id: done
+  label: 완료
+  hint: 구현·기록 확인
+areas:
+- id: fe
+  label: 프론트
+- id: be
+  label: 백엔드
+- id: ai
+  label: AI 에이전트
+- id: eval
+  label: 평가
+- id: qa
+  label: QA·릴리스
+- id: content
+  label: 시나리오·콘텐츠
+sprints:
+- id: sprint-1
+  name: Sprint 1
+  period: '09.03 ~ 09.04'
+  phase: 설계
+  goal: 기획서 v6 기준으로 기획 문서를 갱신하고 ERD·API 계약·에이전트 구성을 확정해 화면 5장 구현을 바로 시작할 수 있게 한다.
+  exit: ERD v1 FREEZE, API 계약 v1 발행, 도메인 계층 순수 함수 테스트가 CI에서 돈다.
+  status: done
+  record_url: /docs/schedule/sprint1.html
+  tasks:
+  - id: AI-01
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: ai
+    title: 에이전트 6층 구성 확정
+    dod: Planner·Agent·Advisor·Re-plan·Evaluator·Memory 의 입출력 스키마가 문서로 확정
+    output: /plan/ai/
+  - id: AI-02
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: eval
+    title: LLM 프로바이더 선정 · 역할별 후보 · 비용 추정
+    dod: Agent(저지연)·Planner(추론)·Evaluator(긴 로그) 후보와 판당 예상 비용 표
+    output: 모델 선정서
+  - id: AI-03
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: ai
+    title: NPC 3인 초기 상태 · 목표 정의
+    dod: 민석·채연·은상의 자기 목표와 초기 의심/신뢰, 관계가 데이터로 정의
+    output: NPC 정의
+  - id: APP-01
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: fe
+    title: 화면 범위 조정 — 앱 → 노트·인스펙터
+    dod: 기획서에 모바일 앱이 없음을 확인하고 노트·인스펙터를 웹 화면으로 확정
+    output: 범위 확정
+  - id: APP-02
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: fe
+    title: 웹 개발 환경 셋업 · 디자인 토큰 공유
+    dod: 같은 레포에서 dev 서버가 뜨고 아침·대화 화면과 같은 디자인 토큰을 사용
+    output: 환경 셋업
+  - id: APP-03
+    date: '2026-09-03'
+    status: done
+    priority: P1
+    area: fe
+    title: 노트 · 인스펙터 화면 구조 설계
+    dod: 두 화면의 정보 구조와 진입 동선을 스케치로 확정
+    output: 화면 설계
+  - id: BE-01
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: be
+    title: ERD 초안 — 세션·루프·발화·판정 로그
+    dod: 계정 테이블 없이 익명 session 기준으로 테이블 목록과 관계 초안 게시, 고립 테이블 0개
+    output: /plan/data/
+  - id: BE-02
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: be
+    title: 도메인 계층 골격 — 의심도·신뢰도·발화 예산
+    dod: LLM 없이 import 되고 유닛테스트가 도는 순수 함수 모듈이 존재
+    output: domain/
+  - id: BE-03
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: be
+    title: 포트 3개 인터페이스 정의 (LLM·도구·도메인)
+    dod: 세 포트의 시그니처가 코드로 존재하고, 도구 이름이 도메인 중립(ask_third_party·search_history)
+    output: ports/
+  - id: FE-01
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: fe
+    title: 웹 프로젝트 생성 · Vercel 연결
+    dod: dev 서버가 3300 으로 뜨고 /api 가 8300 으로 프록시, Vercel 프리뷰 배포 1회 성공
+    output: frontend/
+  - id: FE-02
+    date: '2026-09-03'
+    status: review
+    priority: P0
+    area: fe
+    title: 디자인 토큰 — 읽기 우선 타이포
+    dod: 본문 행간 1.8 이상, 어절 단위 줄바꿈, 상태색 3종 확정
+    output: design tokens
+  - id: FE-03
+    date: '2026-09-03'
+    status: done
+    priority: P1
+    area: fe
+    title: 화면 5장 라우팅 골격
+    dod: 아침·대화·노트·인스펙터 라우트가 존재하고 이동 동작 (권고는 오버레이)
+    output: 라우팅
+  - id: PM-01
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: qa
+    title: Jekyll 개발 허브 구축 · 도메인 연결
+    dod: 개발 문서 사이트에서 기획·일정·타임라인이 열린다 (DNS 연결 완료)
+    output: 개발 허브 사이트
+  - id: PM-02
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: qa
+    title: Vercel 계정 · 프로젝트 등록
+    dod: 웹 배포 대상이 준비되고, 추후 도메인 연결이 클릭 수준으로 가능
+    output: Vercel 프로젝트
+  - id: PM-03
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: content
+    title: 기획서 v6 를 기획 문서 10편에 반영
+    dod: 제품 정의·방어선·ERD·에이전트 설계가 원문 기준으로 교체되고 추론 표시가 사라진다
+    output: /plan/ 전체
+  - id: PM-04
+    date: '2026-09-03'
+    status: done
+    priority: P1
+    area: qa
+    title: 발화 예산을 설정값으로 분리 · 잠정 기본값 지정
+    dod: 상수 하드코딩 금지. 초기 5 / 5루프째 4 / 하한 3 을 잠정값으로 두고 확정 전까지 유효함을 기록
+    output: 설정 파일 · 결정 기록
+  - id: PM-05
+    date: '2026-09-03'
+    status: done
+    priority: P0
+    area: qa
+    title: 화면 범위 조정 (앱 → 노트·인스펙터)
+    dod: 기획서에 모바일 앱이 없음을 확인하고 노트·인스펙터를 웹 화면으로 확정
+    output: 범위 문서 갱신
+  - id: PM-06
+    date: '2026-09-03'
+    status: todo
+    priority: P0
+    area: qa
+    title: GitHub 브랜치 보호 · PR 템플릿
+    dod: main 직접 push 차단, PR 템플릿에 방어선 항목 체크란 포함
+    output: 레포 설정
+  - id: AI-04
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: ai
+    title: JSON 스키마 하네스 + 재시도
+    dod: 자유 텍스트 응답이 거부되고, 스키마 위반 시 재시도 후 안전 기본값
+    output: harness/
+  - id: AI-05
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: ai
+    title: Agent 판정 프롬프트 v0
+    dod: 발화 1건에 대해 응답·의심여부·도구호출·계획수정 을 JSON으로 반환
+    output: prompts/agent/v0
+  - id: AI-06
+    date: '2026-09-04'
+    status: review
+    priority: P0
+    area: ai
+    title: llm_call 계측 테이블 반영 요청
+    dod: 역할·모델·스키마통과·재시도·토큰·지연·비용 필드가 ERD v1 에 포함
+    output: ERD 반영
+  - id: APP-04
+    date: '2026-09-04'
+    status: todo
+    priority: P0
+    area: fe
+    title: 노트 · 인스펙터 API 계약 리뷰
+    dod: 필요한 필드가 계약에 다 있는지 확인하고 누락을 계약 변경 로그에 기록
+    output: 계약 피드백
+  - id: APP-05
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: fe
+    title: 노트 타임라인 골격
+    dod: 루프별 항목이 시간순으로 쌓이는 레이아웃이 목데이터로 렌더
+    output: 노트 골격
+  - id: APP-06
+    date: '2026-09-04'
+    status: done
+    priority: P1
+    area: fe
+    title: 인스펙터 판정 체인 골격
+    dod: 발화 → 내부 판정 여러 줄 → 출력 구조가 목데이터로 렌더
+    output: 인스펙터 골격
+  - id: BE-04
+    date: '2026-09-04'
+    status: review
+    priority: P0
+    area: be
+    title: ERD v1 FREEZE + Alembic 초기 리비전
+    dod: 빈 DB에 전체 스키마 생성 성공, downgrade 작성 완료
+    output: alembic/versions
+  - id: BE-05
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: be
+    title: 도메인 규칙 테스트 우선 작성
+    dod: 의심 누적·신뢰 임계·예산 감소/회복/하한·루프 잔류율 5% 가 테스트로 고정
+    output: tests/domain
+  - id: BE-06
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: be
+    title: API 계약 v1 발행 (OpenAPI)
+    dod: 세션·루프·발화(SSE)·노트·인스펙터 스키마 공개, 프론트가 참조 시작
+    output: /plan/api/
+  - id: BE-07
+    date: '2026-09-04'
+    status: done
+    priority: P1
+    area: be
+    title: 세션 발급 + GET /sessions/me 배선 검증
+    dod: 로그인 없이 첫 요청에서 익명 세션이 발급되고 200 왕복
+    output: session API
+  - id: FE-04
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: fe
+    title: API 클라이언트 + 세션 키 보관
+    dod: 첫 진입 시 세션 발급 후 로컬 보관, X-Session-Key 자동 첨부
+    output: api client
+  - id: FE-05
+    date: '2026-09-04'
+    status: todo
+    priority: P0
+    area: fe
+    title: SSE 수신 골격
+    dod: delta/tool/done/error 이벤트를 받아 상태로 반영, 자체 타임아웃 존재
+    output: sse client
+  - id: FE-06
+    date: '2026-09-04'
+    status: review
+    priority: P1
+    area: fe
+    title: 공통 컴포넌트 최소 세트
+    dod: 버튼·입력·배너·스켈레톤이 토큰 기반으로 구현
+    output: components
+  - id: PM-07
+    date: '2026-09-04'
+    status: review
+    priority: P0
+    area: qa
+    title: ERD FREEZE 결정 · 기록
+    dod: 18:00 ERD v1 확정, 이후 변경 절차(마이그레이션+클라이언트 대응) 기록
+    output: /plan/data/ 결정 로그
+  - id: PM-08
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: qa
+    title: 스테이징 API 서버 + PostgreSQL(벡터) 프로비저닝
+    dod: api-stg 헬스체크 통과, 벡터 확장 설치 확인, 일 1회 백업 크론 동작
+    output: 스테이징 환경
+  - id: PM-09
+    date: '2026-09-04'
+    status: done
+    priority: P0
+    area: qa
+    title: 시크릿 체계 + LLM 비용 상한 키 등록
+    dod: .env.example 만 커밋, GitHub/Vercel 시크릿 등록, LLM_DAILY_LIMIT_USD 값 확정
+    output: /pm/infra/ 시크릿 표
+  - id: PM-10
+    date: '2026-09-04'
+    status: todo
+    priority: P0
+    area: qa
+    title: 인프라 권한 · 접근 경로 정리
+    dod: 서버·시크릿·배포 권한과 접근 경로를 문서로 정리 — 단일 장애점 제거
+    output: 권한 정리
+- id: sprint-2
+  name: Sprint 2
+  period: '09.05 ~ 09.12'
+  phase: 구현
+  goal: 절대 방어선 ①~⑤(대화·판정, 침묵 권고, 루프 축적, 민석 예외, 전이)를 코드로 구현하고 1루프 완주 알파를 거쳐 기능을 동결한다.
+  exit: 18:00 기능 동결 뒤 회귀 시나리오 R1~R10 전건 통과, P0/P1 0건, 감사 어댑터 교체 시 엔진 코드 diff가 비어 있다.
+  status: done
+  record_url: /docs/schedule/sprint2.html
+  tasks:
+  - id: AI-07
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: ai
+    title: LLM 포트 + 어댑터 구현
+    dod: 도메인은 포트만 의존, 설정 변경만으로 모델 교체 가능
+    output: LlmPort
+  - id: AI-08
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: ai
+    title: Agent 층 — 발화 1건 판정 왕복
+    dod: 유저 발화가 Agent를 거쳐 응답으로 돌아오고, 수치는 코드가 계산
+    output: Agent 구현
+  - id: AI-09
+    date: '2026-09-05'
+    status: todo
+    priority: P0
+    area: ai
+    title: 스트리밍 응답 처리
+    dod: 토큰 단위 델타가 SSE로 흐르고 done/error 로 반드시 종료
+    output: 스트리밍
+  - id: APP-07
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: fe
+    title: 노트 타임라인 실 API 연동
+    dod: 세션의 누적 노트가 실제로 조회되어 렌더
+    output: 노트 화면
+  - id: APP-08
+    date: '2026-09-05'
+    status: todo
+    priority: P1
+    area: fe
+    title: 노트 빈 상태 · 첫 루프 처리
+    dod: 1루프에는 노트가 거의 비어 있고, 그 상태가 자연스럽게 보인다
+    output: 빈 상태
+  - id: APP-09
+    date: '2026-09-05'
+    status: done
+    priority: P1
+    area: fe
+    title: 감각 파편 표현 — 짧고 불완전하게
+    dod: 노트 항목이 보고서가 아니라 파편처럼 보이는 타이포·간격
+    output: 노트 스타일
+  - id: BE-08
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: be
+    title: 루프 생성 · 상태 전이 · 아침 화면 데이터
+    dod: POST /loops 가 고정 문장과 손상 1층 문장을 담아 반환, LLM 호출 없이 즉시
+    output: loop API
+  - id: BE-09
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: be
+    title: 발화 예산 소모 · 차단 · 회복
+    dod: 예산 소진 시 BUDGET_EXHAUSTED, 루프 스킵 시 회복, 하한 3 유지
+    output: 예산 규칙
+  - id: BE-10
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: be
+    title: 발화 엔드포인트 + SSE 골격
+    dod: POST /loops/{id}/utterances 가 delta→done 이벤트를 실제로 흘린다
+    output: SSE 엔드포인트
+  - id: FE-07
+    date: '2026-09-05'
+    status: review
+    priority: P0
+    area: fe
+    title: 아침 화면 — 공개 진입점
+    dod: 서버가 내려준 morning.fixed 를 그대로 렌더. 프론트 하드코딩 없음
+    output: 아침 화면
+  - id: FE-08
+    date: '2026-09-05'
+    status: review
+    priority: P0
+    area: fe
+    title: 손상 1층 렌더 — 두 번째 문장
+    dod: 고정 문장 뒤 변형 문장이 자연스럽게 이어지고, 강조 표시가 없다
+    output: 손상 렌더
+  - id: FE-09
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: fe
+    title: 스테이징 실 API로 아침 화면 진입
+    dod: 로그인 없이 첫 방문에서 아침 화면까지 도달
+    output: 연동 확인
+  - id: PM-11
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: qa
+    title: 백엔드 CI — 테스트 + import-linter 게이트
+    dod: 도메인 계층이 LLM 어댑터를 참조하면 CI 실패하고 머지가 막힌다
+    output: .github/workflows
+  - id: PM-12
+    date: '2026-09-05'
+    status: done
+    priority: P0
+    area: qa
+    title: Vercel 웹 배포 + PR 프리뷰 연결
+    dod: PR마다 프리뷰 URL 생성, main 머지 시 스테이징 반영
+    output: Vercel 연동
+  - id: PM-13
+    date: '2026-09-05'
+    status: review
+    priority: P1
+    area: content
+    title: 아침 문장 · 손상 1층 문안 1차
+    dod: 고정 문장 1개 + 두 번째 문장 변형 후보 10개 작성
+    output: 텍스트 시트
+  - id: PM-14
+    date: '2026-09-05'
+    status: done
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #1'
+    dod: review 카드 판정 완료, 막힌 항목 3개 이하, 사이트 반영 커밋
+    output: 데브로그 1건
+  - id: AI-10
+    date: '2026-09-06'
+    status: review
+    priority: P0
+    area: ai
+    title: ask_npc 구현 — NPC가 NPC에게 확인
+    dod: Agent가 판단해 호출하고, 결과가 재판정에 반영되어 거짓 출처가 발각됨
+    output: ask_npc
+  - id: AI-11
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: ai
+    title: Planner — 루프 시작 시 하루 계획
+    dod: NPC 3인이 각자 비트 단위 계획을 세우고 저장
+    output: Planner
+  - id: AI-12
+    date: '2026-09-06'
+    status: done
+    priority: P1
+    area: ai
+    title: 토큰 · 비용 계측 적재
+    dod: 요청별 토큰/비용/지연이 llm_call 에 기록되고 일자별 집계 가능
+    output: 비용 집계
+  - id: APP-10
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: fe
+    title: 인스펙터 실 API 연동
+    dod: 발화 1건의 판정 체인이 실제 로그로 열린다
+    output: 인스펙터
+  - id: APP-11
+    date: '2026-09-06'
+    status: review
+    priority: P0
+    area: fe
+    title: 도구 호출 체인 표시
+    dod: ask_npc 호출·결과·부작용이 체인 안에서 구분되어 보인다
+    output: 툴 체인 UI
+  - id: APP-12
+    date: '2026-09-06'
+    status: doing
+    priority: P1
+    area: fe
+    title: 인스펙터 진입 동선
+    dod: 게임 흐름을 방해하지 않으면서 언제든 열 수 있다
+    output: 진입 동선
+  - id: BE-11
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: be
+    title: 판정 로그 저장 — judgement_log
+    dod: 발화 1건당 의심/신뢰/도구/불일치/재계획 판정이 순서대로 기록됨
+    output: 판정 저장소
+  - id: BE-12
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: be
+    title: 도구 디스패치 + 탐문 예산
+    dod: ask_npc 호출이 하네스를 통과하고, NPC 하루 2회 초과 시 실행 전 거부
+    output: 도구 포트 구현
+  - id: BE-13
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: be
+    title: 도구 부작용 반영 — 이름 빌린 쪽 의심도
+    dod: ask_npc 결과의 side_effect 가 대상 NPC 상태에 실제로 적용되고 로그에 남음
+    output: side_effect 처리
+  - id: FE-10
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: fe
+    title: 대화창 — 발화 입력과 스트리밍 렌더
+    dod: 입력 → 전송 → 델타가 실시간으로 쌓이고 중단 버튼 동작
+    output: 대화창
+  - id: FE-11
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: fe
+    title: 발화 예산 UI
+    dod: 남은 예산이 항상 보이고, 소진 시 입력이 비활성화되며 안내가 뜬다
+    output: 예산 표시
+  - id: FE-12
+    date: '2026-09-06'
+    status: todo
+    priority: P0
+    area: fe
+    title: NPC 상태 비노출 확인
+    dod: 의심도·신뢰도가 화면 어디에도 렌더되지 않음 (인스펙터 제외)
+    output: 점검
+  - id: PM-15
+    date: '2026-09-06'
+    status: done
+    priority: P0
+    area: qa
+    title: 스테이징 자동 배포 + HTTPS
+    dod: main 머지 → 5분 내 반영, api 도메인 https 접속, 인증서 자동 갱신
+    output: 배포 파이프라인
+  - id: PM-16
+    date: '2026-09-06'
+    status: done
+    priority: P1
+    area: content
+    title: NPC 3인 말투 가이드
+    dod: 민석·채연·은상 각각 어휘·문장 길이·회피 방식이 구분되는 예문 5개씩
+    output: 말투 가이드
+  - id: PM-17
+    date: '2026-09-06'
+    status: todo
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #2'
+    dod: 방어선 ① 진척 확인, 내일 통합 선행조건 점검
+    output: 리뷰 기록
+  - id: AI-13
+    date: '2026-09-07'
+    status: todo
+    priority: P0
+    area: ai
+    title: Re-plan — 4개 트리거 구현
+    dod: 의심 임계·신뢰 임계·탐문 결과·계획 실패에서 계획이 실제로 바뀌고 로그에 남음
+    output: Re-plan
+  - id: AI-14
+    date: '2026-09-07'
+    status: todo
+    priority: P0
+    area: ai
+    title: SSE 이벤트 계약 확정
+    dod: advice/delta/tool/done/error 를 프론트와 백엔드가 같은 스펙으로 확정
+    output: SSE 스펙
+  - id: AI-15
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: ai
+    title: 실패 폴백 — 타임아웃 · 컨텍스트 초과
+    dod: 재시도 후 AI_UNAVAILABLE, 컨텍스트 초과 시 노트 요약 후 재시도
+    output: 폴백
+  - id: APP-13
+    date: '2026-09-07'
+    status: review
+    priority: P0
+    area: fe
+    title: 1차 통합 — 노트·인스펙터 실데이터 검증
+    dod: 실제 1루프를 돌린 뒤 두 화면이 그 루프를 정확히 반영
+    output: 통합 확인
+  - id: APP-14
+    date: '2026-09-07'
+    status: todo
+    priority: P0
+    area: fe
+    title: 노트 검색 UI (인터페이스 선구현)
+    dod: 검색창이 존재하고 전량 반환으로 동작. 임베딩 교체 시 UI 변경 없음
+    output: 검색 UI
+  - id: APP-15
+    date: '2026-09-07'
+    status: todo
+    priority: P1
+    area: fe
+    title: 긴 판정 체인 스크롤 처리
+    dod: 체인이 길어져도 화면이 무너지지 않고 가로 스크롤이 생기지 않음
+    output: 레이아웃
+  - id: BE-14
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: be
+    title: 웹 1차 통합 대응
+    dod: 프론트가 실 API로 아침→대화→응답을 완주, 계약 이슈 당일 해소
+    output: 계약 변경 로그
+  - id: BE-15
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: be
+    title: 도메인 어댑터 30분 탐색
+    dod: 감사 도메인 어댑터를 시도해 코어가 막히는지만 확인. 막히면 새어든 개념을 지목
+    output: 탐색 기록
+  - id: BE-16
+    date: '2026-09-07'
+    status: done
+    priority: P1
+    area: be
+    title: 노트 자동 기록 — note_entry
+    dod: 루프 종료 시 죽음의 감각·주요 사건이 노트에 자동 적재
+    output: 노트 저장
+  - id: FE-13
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: fe
+    title: 1루프 end-to-end
+    dod: 아침 → 대화 3회 → 하루 종료 → 아침 복귀가 실 API로 완주
+    output: 루프 플로우
+  - id: FE-14
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: fe
+    title: 로딩 · 오류 · 종료 상태
+    dod: LLM 지연·네트워크 끊김·예산 소진에 각각 정해진 화면
+    output: 상태 UI
+  - id: FE-15
+    date: '2026-09-07'
+    status: done
+    priority: P1
+    area: fe
+    title: 툴 호출 진행 표시
+    dod: 'event: tool 수신 시 ''~를 확인하는 중'' 표시 후 사라짐'
+    output: 툴 인디케이터
+  - id: PM-18
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: qa
+    title: 1루프 스모크 스크립트
+    dod: 한 명령으로 세션 발급→아침→발화 3회→루프 종료까지 확인, 실패 시 종료코드 1
+    output: scripts/smoke.sh
+  - id: PM-19
+    date: '2026-09-07'
+    status: review
+    priority: P0
+    area: qa
+    title: LLM 비용 · 스키마 통과율 대시보드
+    dod: 일일 토큰·비용과 역할별 스키마 통과율을 한 화면에서 확인, 80% 알람
+    output: 관측 대시보드
+  - id: PM-20
+    date: '2026-09-07'
+    status: todo
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #3 + 진행률 리포트'
+    dod: 방어선 5개별 완료율 산출, 전이 탐색 결과 확인
+    output: 진행률 표
+  - id: PM-48
+    date: '2026-09-07'
+    status: done
+    priority: P0
+    area: qa
+    title: 발화 예산 확정
+    dod: 초기 회수·감소 곡선·하한을 확정하고 결정 로그에 근거와 함께 기록
+    output: /plan/scope/ 결정 로그
+  - id: AI-16
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: ai
+    title: Advisor 구현 — 침묵 권고
+    dod: 임계 근접 시 희소하게 발동하고 근거를 함께 반환
+    output: Advisor
+  - id: AI-17
+    date: '2026-09-08'
+    status: todo
+    priority: P0
+    area: ai
+    title: 권고 A/B — 근거 표시 유무 분기
+    dod: rationale_shown 이 세션별로 갈리고 로그에 기록됨
+    output: A/B 분기
+  - id: AI-18
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: ai
+    title: 발동 빈도 초기 튜닝
+    dod: 1루프에 0~1회 수준으로 발동. 매 턴 뜨지 않음을 로그로 확인
+    output: 발동 규칙
+  - id: APP-16
+    date: '2026-09-08'
+    status: todo
+    priority: P0
+    area: fe
+    title: 노트 불일치(손상 2층) 렌더
+    dod: 불일치가 오류 표시가 아니라 조용히 존재한다. 경고 아이콘 금지
+    output: 손상 2층 UI
+  - id: APP-17
+    date: '2026-09-08'
+    status: review
+    priority: P0
+    area: fe
+    title: 모바일 웹 최적화 1차
+    dod: 노트·인스펙터가 모바일 화면에서 읽을 수 있는 수준
+    output: 모바일 대응
+  - id: APP-18
+    date: '2026-09-08'
+    status: done
+    priority: P1
+    area: fe
+    title: 루프별 그룹핑 · 접기
+    dod: 루프가 쌓여도 노트가 한눈에 들어온다
+    output: 그룹 UI
+  - id: BE-17
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: be
+    title: 세계 손상 산출 — 개입 깊이
+    dod: 발화 수·신뢰 변화량·결정적 발언에서 depth_score 가 계산되고 층 전환이 일어남
+    output: world_damage
+  - id: BE-18
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: be
+    title: 권고 응답 기록 엔드포인트
+    dod: POST /advices/{id}/response 로 accepted/ignored 가 저장, 발화 전 무시도 기록됨
+    output: advice API
+  - id: BE-19
+    date: '2026-09-08'
+    status: done
+    priority: P1
+    area: be
+    title: 손상 발현 기록 — damage_event
+    dod: 층별 발현이 어디서 언제 일어났는지 조회 가능
+    output: damage_event
+  - id: FE-16
+    date: '2026-09-08'
+    status: review
+    priority: P0
+    area: fe
+    title: 침묵 권고 배너
+    dod: 권고와 근거가 함께 뜨고, 수용/무시 버튼이 동등하게 배치됨
+    output: 권고 배너
+  - id: FE-17
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: fe
+    title: 권고 응답 전송 — 무시 포함
+    dod: 무시 후 발화 시 발화 요청 전에 ignored 가 먼저 전송됨
+    output: 응답 전송
+  - id: FE-18
+    date: '2026-09-08'
+    status: todo
+    priority: P1
+    area: fe
+    title: 근거 표시 A/B 렌더 분기
+    dod: 서버가 내려준 분기값에 따라 근거가 표시되거나 생략됨
+    output: A/B 렌더
+  - id: PM-21
+    date: '2026-09-08'
+    status: todo
+    priority: P0
+    area: content
+    title: 손상 2·3층 문안 (노트 불일치 · 충식 소실)
+    dod: 불일치 케이스 5개, 충식 언급 소거 단계 3단 문안 작성
+    output: 텍스트 시트
+  - id: PM-22
+    date: '2026-09-08'
+    status: done
+    priority: P0
+    area: qa
+    title: 알파 시연 시나리오 확정
+    dod: 기기별로 따라할 1루프 대본과 확인 항목 작성
+    output: 시연 시나리오
+  - id: PM-23
+    date: '2026-09-08'
+    status: done
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #4'
+    dod: 권고 로깅이 실제로 쌓이는지 DB에서 직접 확인
+    output: 리뷰 기록
+  - id: AI-19
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: ai
+    title: 알파 시연 대응
+    dod: 1루프 완주 중 판정 실패·스키마 오류 0건
+    output: 핫픽스
+  - id: AI-20
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: eval
+    title: 판정 일관성 실험 (11.1 첫 행)
+    dod: 같은 발화 20회 반복 투입 시 의심도 변화 편차를 측정하고 기준 설정
+    output: 일관성 리포트
+  - id: AI-21
+    date: '2026-09-09'
+    status: done
+    priority: P1
+    area: ai
+    title: Agent 프롬프트 v1 튜닝
+    dod: 판정이 흔들린 케이스 5건 반영, 자유 판단을 범주 선택으로 좁힘
+    output: prompts/agent/v1
+  - id: APP-19
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: fe
+    title: 알파 시연 대응
+    dod: 시연 중 노트·인스펙터에서 발생한 P0 당일 처리
+    output: 핫픽스
+  - id: APP-20
+    date: '2026-09-09'
+    status: todo
+    priority: P0
+    area: fe
+    title: 노트 대표 캡처 다듬기
+    dod: 루프가 쌓인 노트 화면이 캡처 한 장으로 설득력을 갖는다
+    output: 캡처본
+  - id: APP-21
+    date: '2026-09-09'
+    status: todo
+    priority: P1
+    area: fe
+    title: 인스펙터 가독성 조정
+    dod: 수치·화살표·부작용이 한눈에 구분된다
+    output: 가독성
+  - id: BE-20
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: be
+    title: 알파 시연 대응 · 백엔드 핫픽스
+    dod: 1루프 완주 중 발생한 백엔드 P0 를 당일 처리
+    output: 핫픽스
+  - id: BE-21
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: be
+    title: 인스펙터 API
+    dod: GET /loops/{id}/inspector 가 8.8 구조 그대로 판정 체인 반환
+    output: 인스펙터 API
+  - id: BE-22
+    date: '2026-09-09'
+    status: todo
+    priority: P1
+    area: be
+    title: 판정 로그 조회 인덱스
+    dod: 인스펙터 조회가 N+1 없이 단일 쿼리 범위에서 처리
+    output: 인덱스
+  - id: FE-19
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: fe
+    title: 알파 배포 · 시연 대응
+    dod: 웹 알파가 스테이징 URL에서 동작하고 1루프 완주
+    output: 알파 배포
+  - id: FE-20
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: fe
+    title: 시연 버그 수정
+    dod: 시연 중 발견된 웹 P0 당일 처리
+    output: 핫픽스
+  - id: FE-21
+    date: '2026-09-09'
+    status: doing
+    priority: P1
+    area: fe
+    title: 첫 루프 진입 속도
+    dod: 방문 → 아침 화면까지 LLM 호출 없이 즉시 렌더
+    output: 진입 최적화
+  - id: PM-24
+    date: '2026-09-09'
+    status: done
+    priority: P0
+    area: qa
+    title: 알파 시연 — 1루프 완주
+    dod: 여러 기기에서 아침→대화→죽음→아침을 완주
+    output: 시연 결과표
+  - id: PM-25
+    date: '2026-09-09'
+    status: review
+    priority: P0
+    area: qa
+    title: 범위 컷 결정 (방어선 미달 시)
+    dod: 미착수 방어선이 2개 이상이면 ⑨→⑧→⑦→⑥ 순으로 v1에서 제외하고 기록, 이후 재론 없음
+    output: /plan/scope/ 갱신
+  - id: PM-26
+    date: '2026-09-09'
+    status: todo
+    priority: P1
+    area: qa
+    title: 중간 리스크 재평가
+    dod: R2~R10 트리거 도달 여부 점검, 상위 5개에 기한 재지정
+    output: /plan/risk/
+  - id: AI-22
+    date: '2026-09-10'
+    status: todo
+    priority: P0
+    area: ai
+    title: 민석 예외 정책 적용
+    dod: 민석만 루프 기억 유지, 채연·은상 5% 잔류. 인터페이스는 동일
+    output: 메모리 정책
+  - id: AI-23
+    date: '2026-09-10'
+    status: todo
+    priority: P0
+    area: ai
+    title: 정체 발현 트리거
+    dod: 민석이 유저가 아직 하지 않은 말에 반응하고 곧바로 수습한다
+    output: 발현 트리거
+  - id: AI-24
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: ai
+    title: Evaluator — 원인 체인 서술
+    dod: 루프 종료 시 누가 왜 그 선택에 도달했는지 서술을 생성
+    output: Evaluator
+  - id: APP-22
+    date: '2026-09-10'
+    status: todo
+    priority: P0
+    area: fe
+    title: 충식 소실(손상 3층) 표현 지원
+    dod: 노트에 남은 충식 언급이 후반에 어긋나 보이는 처리
+    output: 손상 3층
+  - id: APP-23
+    date: '2026-09-10'
+    status: review
+    priority: P0
+    area: fe
+    title: 전이 도메인 화면 대응 준비
+    dod: 인스펙터가 도메인 중립 필드명으로 렌더되어 용어만 갈아끼우면 됨
+    output: 중립 렌더
+  - id: APP-24
+    date: '2026-09-10'
+    status: review
+    priority: P1
+    area: fe
+    title: 모바일 웹 최적화 2차
+    dod: 대화창까지 포함해 모바일에서 1루프 완주 가능
+    output: 모바일 대응
+  - id: BE-23
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: be
+    title: 메모리 정책 주입 — 민석 예외
+    dod: 루프 전이 시 채연·은상은 5% 잔류, 민석은 유지. 같은 인터페이스에 정책만 다름
+    output: 메모리 정책
+  - id: BE-24
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: be
+    title: 엔딩 판정 — 4종 분기
+    dod: 원인 파악·관계 축으로 repeat/isolation/hesitation/handover 가 결정됨
+    output: 엔딩 판정
+  - id: BE-25
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: be
+    title: 도메인 포트 정식 구현
+    dod: 게임/감사 두 어댑터가 같은 포트를 구현하고 설정으로 전환됨
+    output: domain adapter
+  - id: FE-22
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: fe
+    title: 엔딩 화면 4종
+    dod: 반복·고립·망설임·인계가 각각 다른 마무리로 렌더
+    output: 엔딩 화면
+  - id: FE-23
+    date: '2026-09-10'
+    status: todo
+    priority: P0
+    area: fe
+    title: 루프 카운터 비노출 · 후반 문장 변화 대응
+    dod: 카운터가 없고, 7시 13분으로 바뀌어도 화면이 자연스럽다
+    output: 점검
+  - id: FE-24
+    date: '2026-09-10'
+    status: review
+    priority: P1
+    area: fe
+    title: 키보드 완주 · 대비비
+    dod: 대화 입력→전송→권고 응답을 키보드만으로, 본문 대비비 4.5:1
+    output: 접근성
+  - id: PM-27
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: qa
+    title: 프로덕션 인프라 프로비저닝
+    dod: 프로덕션 API·DB·Vercel이 스테이징과 동일 구성으로 기동
+    output: prod 환경
+  - id: PM-28
+    date: '2026-09-10'
+    status: done
+    priority: P0
+    area: content
+    title: 엔딩 4종 텍스트 초안
+    dod: 반복·고립·망설임·인계 4편 작성. 망설임이 위로상처럼 읽히지 않을 것
+    output: 엔딩 텍스트
+  - id: PM-29
+    date: '2026-09-10'
+    status: todo
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #5'
+    dod: 방어선 ③④ 실동작 확인 (손상 발현·민석 기억)
+    output: 리뷰 기록
+  - id: AI-25
+    date: '2026-09-11'
+    status: done
+    priority: P0
+    area: ai
+    title: 감사 도메인 프롬프트 어댑터
+    dod: 용어만 교체한 프롬프트로 감사 시나리오가 돌고, 엔진 코드는 그대로
+    output: audit adapter
+  - id: AI-26
+    date: '2026-09-11'
+    status: done
+    priority: P1
+    area: ai
+    title: 커리어 시나리오 프롬프트
+    dod: 두 번째 어댑터가 프롬프트 하나로 동작 (5초 시연용)
+    output: career adapter
+  - id: AI-27
+    date: '2026-09-11'
+    status: review
+    priority: P0
+    area: ai
+    title: 프롬프트 동결 · 버전 태깅
+    dod: 운영 프롬프트를 v1.0 으로 태깅, 이후 변경은 새 버전 태깅으로만
+    output: prompts/v1.0
+  - id: APP-25
+    date: '2026-09-11'
+    status: review
+    priority: P0
+    area: fe
+    title: 감사 도메인 인스펙터 개봉 확인
+    dod: 같은 인스펙터가 감사 시나리오에서 열리고 용어만 다르다
+    output: 전이 화면
+  - id: APP-26
+    date: '2026-09-11'
+    status: todo
+    priority: P0
+    area: fe
+    title: Feature Freeze — 노트·인스펙터 동결
+    dod: 18:00 이후 기능 커밋 없음
+    output: 동결 확인
+  - id: APP-27
+    date: '2026-09-11'
+    status: todo
+    priority: P2
+    area: fe
+    title: 글자 크기 확대 대응
+    dod: 확대 시 노트·인스펙터 레이아웃이 잘리지 않음
+    output: 접근성
+  - id: BE-26
+    date: '2026-09-11'
+    status: done
+    priority: P0
+    area: be
+    title: 전이 시연 — 감사 대응 실행
+    dod: 어댑터 교체만으로 감사 시나리오가 돌고 엔진 코드 diff 가 비어 있음
+    output: 전이 시연
+  - id: BE-27
+    date: '2026-09-11'
+    status: review
+    priority: P0
+    area: be
+    title: API 계약 최종 고정
+    dod: Freeze 시점 스키마 태깅, 에러 코드 표 완성
+    output: openapi v1.0
+  - id: BE-28
+    date: '2026-09-11'
+    status: done
+    priority: P1
+    area: be
+    title: 도메인 회귀 테스트 스위트
+    dod: CI에서 도메인 테스트가 LLM 없이 3분 내 통과
+    output: CI 리포트
+  - id: FE-25
+    date: '2026-09-11'
+    status: todo
+    priority: P0
+    area: fe
+    title: Feature Freeze — 웹 본류 동결
+    dod: 18:00 이후 기능 커밋 없음
+    output: 동결 확인
+  - id: FE-26
+    date: '2026-09-11'
+    status: review
+    priority: P1
+    area: fe
+    title: 크로스 브라우저 점검
+    dod: Chrome·Safari·모바일 브라우저에서 1루프 완주
+    output: 점검표
+  - id: FE-27
+    date: '2026-09-11'
+    status: review
+    priority: P2
+    area: fe
+    title: 번들 사이즈 · 초기 로드
+    dod: 첫 화면 로드가 목표치 이내
+    output: 번들 리포트
+  - id: PM-30
+    date: '2026-09-11'
+    status: todo
+    priority: P0
+    area: qa
+    title: Feature Freeze 선언
+    dod: 18:00 이후 기능 PR 중단, 예외는 기록한 건만
+    output: 동결 공지
+  - id: PM-31
+    date: '2026-09-11'
+    status: review
+    priority: P0
+    area: qa
+    title: 릴리스 체크리스트 v1 배포
+    dod: 방어선 5개 + 기능/오류/데이터/보안/배포 항목을 체크리스트로 확정
+    output: /plan/release/
+  - id: PM-32
+    date: '2026-09-11'
+    status: done
+    priority: P0
+    area: qa
+    title: 전이 시연 — 엔진 diff 확인
+    dod: 감사 어댑터 적용 시 BeyondBob Engine 코드 diff 가 비어 있음을 직접 확인
+    output: diff 증빙
+  - id: AI-28
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: ai
+    title: AI 버그 스쿼시
+    dod: 배정 P0/P1 전건 종료
+    output: 이슈 종료
+  - id: AI-29
+    date: '2026-09-12'
+    status: todo
+    priority: P0
+    area: eval
+    title: 탐문 ON/OFF 대조 실험
+    dod: 동일 발화 시퀀스에서 ask_npc 유무에 따라 발각률이 갈리는지 수치로 확인
+    output: 대조 리포트
+  - id: AI-30
+    date: '2026-09-12'
+    status: done
+    priority: P1
+    area: eval
+    title: Evaluator 판정 일관성
+    dod: 같은 로그 반복 투입 시 원인 체인이 흔들리지 않음
+    output: 일관성 리포트
+  - id: APP-28
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: fe
+    title: 버그 스쿼시
+    dod: 배정 P0/P1 전건 종료
+    output: 이슈 종료
+  - id: APP-29
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: fe
+    title: 회귀 R6·R10 수행
+    dod: 5루프 노트 축적·손상 2층 확인, 전이 인스펙터 개봉 통과 표시
+    output: 회귀 결과
+  - id: APP-30
+    date: '2026-09-12'
+    status: todo
+    priority: P1
+    area: fe
+    title: 실기기 확인 (iOS · Android 브라우저)
+    dod: 양 플랫폼 모바일 브라우저에서 1루프 완주
+    output: 실기기 결과
+  - id: BE-29
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: be
+    title: 버그 스쿼시 (P0·P1)
+    dod: 배정 전건 종료. 판정 로그 유실은 최우선
+    output: 이슈 종료
+  - id: BE-30
+    date: '2026-09-12'
+    status: todo
+    priority: P0
+    area: be
+    title: 마이그레이션 롤백 검증
+    dod: downgrade 1스텝 후 재적용까지 데이터 손상 없이 성공
+    output: 롤백 로그
+  - id: BE-31
+    date: '2026-09-12'
+    status: todo
+    priority: P1
+    area: be
+    title: 회귀 R5·R7 수행
+    dod: 거짓 출처 발각과 민석 간파 시나리오 통과 표시
+    output: 회귀 결과
+  - id: FE-28
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: fe
+    title: 버그 스쿼시
+    dod: 배정 P0/P1 전건 종료
+    output: 이슈 종료
+  - id: FE-29
+    date: '2026-09-12'
+    status: review
+    priority: P0
+    area: fe
+    title: 회귀 R1~R4 수행
+    dod: 루프 완주·예산 소진·권고 수용·권고 무시 통과 표시
+    output: 회귀 결과
+  - id: FE-30
+    date: '2026-09-12'
+    status: done
+    priority: P2
+    area: fe
+    title: 텍스트 가독성 최종 조정
+    dod: 긴 대사에서 줄바꿈·행간이 무너지지 않음
+    output: 타이포 조정
+  - id: PM-33
+    date: '2026-09-12'
+    status: done
+    priority: P0
+    area: qa
+    title: 버그 트리아지 운영
+    dod: P0/P1 전건에 기한 지정, 하루 2회 갱신. 판정 로그 유실은 P0로 분류
+    output: 이슈 보드
+  - id: PM-34
+    date: '2026-09-12'
+    status: done
+    priority: P0
+    area: qa
+    title: 회귀 시나리오 R1~R10 운영
+    dod: 10개 시나리오가 표로 존재하고 각 시나리오에 통과 표시
+    output: 회귀 표
+  - id: PM-35
+    date: '2026-09-12'
+    status: todo
+    priority: P1
+    area: qa
+    title: '데일리 리뷰 #6'
+    dod: P0 잔여 0건 확인, 아니면 범위 재조정
+    output: 리뷰 기록
+- id: sprint-3
+  name: Sprint 3
+  period: '09.13 ~ 09.16'
+  phase: 검증·v1 공개
+  goal: 세션/IP 제한·비용 상한·엔딩 텍스트를 공개 수준으로 닫고, RC 검증과 배포·롤백 리허설을 거쳐 v1을 공개한다.
+  exit: 공개 오픈 + 30분 관측 정상 + 첫 실사용 로그 수집 확인.
+  status: done
+  record_url: /docs/schedule/sprint3.html
+  tasks:
+  - id: AI-31
+    date: '2026-09-13'
+    status: done
+    priority: P0
+    area: ai
+    title: 비용 상한 · 자동 차단
+    dod: 일 한도 초과 시 알림 발송 및 차단, 정해진 안내 문구 노출
+    output: 쿼터
+  - id: AI-32
+    date: '2026-09-13'
+    status: done
+    priority: P0
+    area: ai
+    title: 프롬프트 인젝션 방어 점검
+    dod: 주입 시도 10건에서 시스템 지시 유지, NPC가 역할을 벗어나지 않음
+    output: 인젝션 테스트
+  - id: AI-33
+    date: '2026-09-13'
+    status: done
+    priority: P1
+    area: ai
+    title: 지연 측정 · 첫 토큰까지 시간
+    dod: 발화 후 TTFT 목표치 설정 및 충족
+    output: 지연 리포트
+  - id: APP-31
+    date: '2026-09-13'
+    status: review
+    priority: P0
+    area: fe
+    title: 공개 대비 모바일 진입 점검
+    dod: 모바일에서 방문 → 아침 화면까지 30초 안에 판단 가능
+    output: 진입 점검
+  - id: APP-32
+    date: '2026-09-13'
+    status: todo
+    priority: P1
+    area: fe
+    title: 노트 렌더 성능 (루프 20회 기준)
+    dod: 루프가 쌓여도 스크롤이 버벅이지 않음
+    output: 성능 확인
+  - id: APP-33
+    date: '2026-09-13'
+    status: todo
+    priority: P1
+    area: fe
+    title: 인스펙터 시연용 화면 정리
+    dod: 공개 시연에서 그대로 띄울 수 있는 상태
+    output: 시연 화면
+  - id: BE-32
+    date: '2026-09-13'
+    status: done
+    priority: P0
+    area: be
+    title: 세션/IP 루프 제한 구현
+    dod: 익명 반복 접속이 차단되고 429 반환, 정상 유저는 영향 없음
+    output: 레이트 리밋
+  - id: BE-33
+    date: '2026-09-13'
+    status: todo
+    priority: P0
+    area: be
+    title: 부하 스모크 · 커넥션 풀
+    dod: 동시 50 세션에서 커넥션 고갈 없음, 아침 화면 p95 < 500ms
+    output: 부하 리포트
+  - id: BE-34
+    date: '2026-09-13'
+    status: todo
+    priority: P1
+    area: be
+    title: 백업 · 복구 리허설
+    dod: 백업 파일로 별도 DB 복구 후 API 기동 성공
+    output: 복구 로그
+  - id: FE-31
+    date: '2026-09-13'
+    status: todo
+    priority: P0
+    area: fe
+    title: 보안 헤더 · CSP (Vercel)
+    dod: 헤더가 실제 응답에 적용되고 SSE 가 막히지 않음
+    output: 헤더 설정
+  - id: FE-32
+    date: '2026-09-13'
+    status: review
+    priority: P0
+    area: fe
+    title: 공개 진입 동선 · 소개 문구
+    dod: 소개가 표면 목표로 통일되고, 커리어 시나리오 진입 링크가 같은 화면에 존재
+    output: 진입 화면
+  - id: FE-33
+    date: '2026-09-13'
+    status: todo
+    priority: P1
+    area: fe
+    title: Lighthouse 목표 달성
+    dod: 성능·접근성 점수 목표치 충족
+    output: 리포트
+  - id: PM-36
+    date: '2026-09-13'
+    status: done
+    priority: P0
+    area: qa
+    title: 공개 대비 — 세션/IP 제한 · 비용 상한 검증
+    dod: 익명 반복 접속이 실제로 차단되고, 상한 도달 시 정해진 안내가 나온다
+    output: 제한 설정
+  - id: PM-37
+    date: '2026-09-13'
+    status: done
+    priority: P0
+    area: qa
+    title: 시크릿 스캔 · 권한 점검
+    dod: 레포 시크릿 0건, CORS 화이트리스트 확정
+    output: 보안 점검표
+  - id: PM-38
+    date: '2026-09-13'
+    status: review
+    priority: P0
+    area: content
+    title: 엔딩 텍스트 검토
+    dod: 4편을 통독하고 망설임 엔딩이 이야기로 성립하는지 확인
+    output: 리뷰 기록
+  - id: AI-34
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: ai
+    title: RC 검증 — 스키마 통과율
+    dod: 역할별 통과율·재시도율이 기준치 이상, 하네스 안정 확인
+    output: 하네스 리포트
+  - id: AI-35
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: ai
+    title: 프로덕션 키 · 역할별 모델 확정
+    dod: 운영 키가 시크릿에만 존재, 역할별 모델과 한도가 prod 기준으로 설정
+    output: prod 설정
+  - id: APP-34
+    date: '2026-09-14'
+    status: todo
+    priority: P0
+    area: fe
+    title: RC 검증 — 노트·인스펙터
+    dod: RC1 에서 두 화면 회귀 통과
+    output: 검증 결과
+  - id: APP-35
+    date: '2026-09-14'
+    status: review
+    priority: P0
+    area: fe
+    title: 프로덕션 환경 확인
+    dod: 운영 API 기준으로 두 화면 정상 동작
+    output: prod 확인
+  - id: BE-35
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: be
+    title: RC 백엔드 검증
+    dod: RC1 이미지로 스테이징 회귀 전건 통과
+    output: 검증 결과
+  - id: BE-36
+    date: '2026-09-14'
+    status: review
+    priority: P0
+    area: be
+    title: 프로덕션 마이그레이션 스크립트 확정
+    dod: 추가만 하는 마이그레이션으로 구성, 소요시간·롤백 방법 명시
+    output: 배포 런북
+  - id: BE-37
+    date: '2026-09-14'
+    status: done
+    priority: P1
+    area: be
+    title: 헬스체크 · 레디니스
+    dod: DB·LLM 연결 실패가 각각 구분되어 응답
+    output: GET /health
+  - id: FE-34
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: fe
+    title: RC 검증
+    dod: RC1 로 스테이징 회귀 전건 통과
+    output: 검증 결과
+  - id: FE-35
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: fe
+    title: 프로덕션 환경변수 전환
+    dod: Vercel prod 환경이 운영 API를 바라보고 정상 동작
+    output: prod 빌드
+  - id: PM-39
+    date: '2026-09-14'
+    status: todo
+    priority: P0
+    area: qa
+    title: RC1 태깅 · 릴리스 노트
+    dod: v1.0.0-rc.1 태그와 방어선 5개 달성 내역 발행
+    output: GitHub Release
+  - id: PM-40
+    date: '2026-09-14'
+    status: done
+    priority: P0
+    area: qa
+    title: 릴리스 체크리스트 최종 검증
+    dod: 전 항목 통과 확인, 미통과 항목은 범위 축소로 처리
+    output: 검증 결과
+  - id: PM-41
+    date: '2026-09-14'
+    status: review
+    priority: P0
+    area: qa
+    title: 온콜 · 롤백 절차 문서화
+    dod: 무엇을·몇 분 안에 하는지 한 장으로 정리
+    output: 운영 런북
+  - id: AI-36
+    date: '2026-09-15'
+    status: done
+    priority: P0
+    area: ai
+    title: Code Freeze 대응
+    dod: 프롬프트·모델 설정 변경 중단, 기록한 핫픽스 건만
+    output: 동결 확인
+  - id: AI-37
+    date: '2026-09-15'
+    status: done
+    priority: P0
+    area: ai
+    title: 배포 리허설 AI 파트
+    dod: 리허설에서 발화 왕복과 권고 발동 정상
+    output: 리허설 기록
+  - id: APP-36
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: fe
+    title: Code Freeze 대응
+    dod: 핫픽스 외 커밋 없음
+    output: 동결 확인
+  - id: APP-37
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: fe
+    title: 배포 리허설 참여
+    dod: 리허설에서 노트·인스펙터 정상 확인
+    output: 리허설 기록
+  - id: BE-38
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: be
+    title: Code Freeze 대응 · 핫픽스 대기
+    dod: 기록한 핫픽스만 처리
+    output: 핫픽스 로그
+  - id: BE-39
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: be
+    title: 배포·롤백 리허설 백엔드 파트
+    dod: 마이그레이션 적용과 downgrade 가 리허설에서 무오류
+    output: 리허설 기록
+  - id: FE-36
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: fe
+    title: Code Freeze 대응
+    dod: 핫픽스 외 커밋 없음
+    output: 동결 확인
+  - id: FE-37
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: fe
+    title: 배포·롤백 리허설 웹 파트
+    dod: Vercel 이전 배포로 되돌리는 절차 확인
+    output: 리허설 기록
+  - id: PM-42
+    date: '2026-09-15'
+    status: todo
+    priority: P0
+    area: qa
+    title: Code Freeze 선언
+    dod: 핫픽스 외 머지 중단, 예외는 기록한 건만
+    output: 동결 공지
+  - id: PM-43
+    date: '2026-09-15'
+    status: review
+    priority: P0
+    area: qa
+    title: 배포 리허설 + 롤백 리허설
+    dod: 각 1회 성공, 단계별 소요시간을 런북에 기록
+    output: 리허설 로그
+  - id: PM-44
+    date: '2026-09-15'
+    status: review
+    priority: P1
+    area: qa
+    title: 공개 소개 문구 · 진입 동선 확정
+    dod: 소개 문구를 표면 목표로 통일, 커리어 시나리오가 같은 링크에서 진입 가능
+    output: 공개 콘텐츠
+  - id: AI-38
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: ai
+    title: 프로덕션 에이전트 검증
+    dod: 운영 환경에서 1루프 완주 + 권고 1회 발동 + 로그 적재 확인
+    output: 검증 로그
+  - id: AI-39
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: ai
+    title: 오픈 온콜 — 비용 · 실패율
+    dod: 오픈 2시간 토큰 사용량·스키마 실패율 이상 없음
+    output: 온콜 기록
+  - id: AI-40
+    date: '2026-09-16'
+    status: todo
+    priority: P2
+    area: ai
+    title: 데브로그 — 침묵 권고 설계 회고
+    dod: AI가 제안자가 되는 유일한 층을 어떻게 설계했는지 글 1편
+    output: 데브로그
+  - id: APP-38
+    date: '2026-09-16'
+    status: review
+    priority: P0
+    area: fe
+    title: 프로덕션 배포 검증
+    dod: 운영에서 노트 축적과 인스펙터 개봉 정상
+    output: 배포 검증
+  - id: APP-39
+    date: '2026-09-16'
+    status: todo
+    priority: P0
+    area: fe
+    title: 오픈 온콜 — 모바일 유입 관측
+    dod: 모바일 브라우저에서의 이탈·오류 확인
+    output: 온콜 기록
+  - id: APP-40
+    date: '2026-09-16'
+    status: todo
+    priority: P2
+    area: fe
+    title: 데브로그 — 인스펙터를 왜 이렇게 만들었나
+    dod: 판정 로그를 사람이 읽을 수 있게 만든 과정을 글 1편
+    output: 데브로그
+  - id: BE-40
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: be
+    title: 프로덕션 배포 백엔드 검증
+    dod: 마이그레이션 후 1루프 완주 + 인스펙터 개봉 정상
+    output: 배포 검증
+  - id: BE-41
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: be
+    title: 오픈 온콜 — API·DB
+    dod: 에러 로그 실시간 확인, 이상 시 즉시 보고
+    output: 온콜 기록
+  - id: BE-42
+    date: '2026-09-16'
+    status: done
+    priority: P2
+    area: be
+    title: 데브로그 — 포트 3개 설계 회고
+    dod: 도메인 어댑터 교체가 실제로 짧은 작업이었는지 기록
+    output: 데브로그
+  - id: FE-38
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: fe
+    title: 프로덕션 배포 검증
+    dod: 운영 도메인에서 1루프 완주
+    output: 배포 검증
+  - id: FE-39
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: fe
+    title: 오픈 온콜 — 프론트 오류
+    dod: JS 오류·실패 요청 이상 없음
+    output: 온콜 기록
+  - id: FE-40
+    date: '2026-09-16'
+    status: todo
+    priority: P2
+    area: fe
+    title: 데브로그 — 스트리밍 대화 UI 회고
+    dod: SSE 렌더와 권고 배너 구현 경험을 글 1편
+    output: 데브로그
+  - id: PM-45
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: qa
+    title: 프로덕션 배포 실행
+    dod: 백업 → 마이그레이션 → API → 웹 순서로 배포, 1루프 완주 확인
+    output: v1.0.0
+  - id: PM-46
+    date: '2026-09-16'
+    status: done
+    priority: P0
+    area: qa
+    title: 오픈 30분 관측 · 온콜
+    dod: 에러율·지연·LLM 비용 정상, 실사용 로그가 실제로 쌓이는지 확인
+    output: 관측 기록
+  - id: PM-47
+    date: '2026-09-16'
+    status: todo
+    priority: P2
+    area: qa
+    title: 회고 · 릴리스 데브로그
+    dod: 14일간 결정·지연·개선점을 글 1편으로
+    output: 데브로그
+- id: sprint-4
+  name: Sprint 4
+  period: '09.17 ~'
+  phase: v1 이후
+  goal: v1을 운영하면서 연구 재집계(09-18)와 개발일지를 이어 가고, v1에서 미룬 범위를 확장한다.
+  exit: 종료일 없음. 작업이 생기는 대로 이 스프린트에 누적한다.
+  status: doing
+  record_url: /docs/schedule/sprint4.html
+  tasks: []

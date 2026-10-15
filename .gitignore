@@ -1,0 +1,10 @@
+_site/
+.jekyll-cache/
+.sass-cache/
+vendor/
+_private/
+REMAKE_DAY_*
+TalkFile_*
+__pycache__/
+brainstorming.md
+HANDOFF.md
